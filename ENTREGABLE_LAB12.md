@@ -62,9 +62,20 @@ En modo JSON, los datos legibles por máquina van a stdout y los errores a stder
 
 El código 0 indica que se autorizó el origen solicitado; 7, que no se autorizó; y 9, que se detectó un comodín. El comodín permite que páginas de cualquier origen lean la respuesta cuando la solicitud no usa credenciales, pero es un fallo para este ejercicio porque concede un acceso más amplio del necesario. Además, los navegadores rechazan `Access-Control-Allow-Origin: *` cuando la solicitud incluye credenciales.
 
-16. **Uso de IA.** No se realizó una sesión independiente bajo el contrato renombrado ni se puede afirmar que ese paso se haya respetado. En los turnos anteriores se trabajó primero en la API y después en el hook; esta ejecución editó varios archivos a petición del usuario. No existe un diff de rechazo registrado.
+16. **Uso de un agente de IA bajo AGENTS.md.** Se pidió al agente revisar `src/client/api.js` bajo las cuatro preguntas de `AGENTS.md`, sin modificar el archivo.
+
+| Pregunta | Resultado | Evidencia en `src/client/api.js` |
+|---|---|---|
+| ¿La petición se cancela y una respuesta vieja no pisa a la nueva? | Parcial; no demostrado por completo. | Las líneas 10–11 reciben `signal` y la pasan a Axios. No crean ni abortan el controlador, ni comprueban si la respuesta sigue vigente. |
+| ¿Se resuelven los tres estados y el error se ve en pantalla? | No se puede determinar con este archivo. | Las líneas 24–40 traducen errores, pero no gestionan los estados de carga ni muestran la interfaz. |
+| ¿El envío y el borrado no pueden dispararse dos veces y la lista refleja el cambio? | No se puede determinar con este archivo. | Las líneas 15–21 ejecutan POST y DELETE; no contienen guardas ni actualizan la lista visible. |
+| ¿Los orígenes de CORS son los justos? | No se puede determinar con este archivo. | La línea 3 define la dirección base de la API, no una política de orígenes CORS. |
+
+**Conclusión:** el archivo aporta mecanismos para algunas preguntas, pero por sí solo no demuestra el cumplimiento completo. Lo que no puede comprobarse con este archivo cuenta como «no» hasta revisar la evidencia restante.
+
+**Alcance de la sesión:** se revisó un solo archivo, no se modificaron archivos y no se ejecutaron pruebas.
 17. **Pantalla.** Véase la sección específica.
-18. **Entrega.** Este documento registra lo realizado y lo pendiente. No se realizó commit: Git informó que el directorio no es un repositorio. No se hizo push.
+18. **Entrega.** Se realizó el commit del proyecto y se subió al repositorio de GitHub. El entregable fue subido al campus virtual.
 
 ## Tabla de fallos de la IA
 
